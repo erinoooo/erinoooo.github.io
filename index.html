@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basit Mesajlaşma</title>
+    <title>Gerçek Zamanlı Chat</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +16,6 @@
             background-color: #f4f4f4;
             margin: 0;
         }
-
         .chat-container {
             width: 300px;
             height: 400px;
@@ -25,7 +26,6 @@
             flex-direction: column;
             overflow: hidden;
         }
-
         .chat-box {
             flex: 1;
             padding: 10px;
@@ -33,32 +33,27 @@
             display: flex;
             flex-direction: column;
         }
-
         .message {
             padding: 8px 12px;
             margin: 5px;
             border-radius: 5px;
             max-width: 70%;
         }
-
         .user-message {
             background-color: #007bff;
             color: white;
             align-self: flex-end;
         }
-
-        .bot-message {
+        .other-message {
             background-color: #e1e1e1;
             color: black;
             align-self: flex-start;
         }
-
         .input-box {
             display: flex;
             padding: 10px;
             background: #ddd;
         }
-
         input {
             flex: 1;
             padding: 8px;
@@ -66,7 +61,6 @@
             border-radius: 5px;
             outline: none;
         }
-
         button {
             padding: 8px;
             border: none;
@@ -81,7 +75,7 @@
 <body>
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
-            <!-- Mesajlar buraya eklenecek -->
+            <!-- Mesajlar buraya gelecek -->
         </div>
         <div class="input-box">
             <input type="text" id="messageInput" placeholder="Mesajınızı yazın...">
@@ -90,31 +84,59 @@
     </div>
 
     <script>
+        // 🔥 Firebase yapılandırmanı buraya ekle
+        const firebaseConfig = {
+            apiKey: "AIzaSyDxv1GYxRIrv20MfvaFO69BaKK16CYaVu8",
+            authDomain: "navibas-ebadf.firebaseapp.com",
+            databaseURL: "https://navibas-ebadf-default-rtdb.firebaseio.com",
+            projectId: "navibas-ebadf",
+            storageBucket: "navibas-ebadf.firebasestorage.app",
+            messagingSenderId: "162845251542",
+            appId: "1:162845251542:web:b21136292d579143d83677"
+        };
+
+        // Firebase başlat
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
         function sendMessage() {
             let messageInput = document.getElementById("messageInput");
-            let chatBox = document.getElementById("chatBox");
+            let messageText = messageInput.value.trim();
+            if (messageText === "") return;
 
-            if (messageInput.value.trim() === "") return;
+            let userId = "User_" + Math.floor(Math.random() * 1000); // Geçici kullanıcı adı
 
-            // Kullanıcının mesajını ekle
-            let userMessage = document.createElement("div");
-            userMessage.classList.add("message", "user-message");
-            userMessage.textContent = messageInput.value;
-            chatBox.appendChild(userMessage);
-
-            // Bot cevabı ekleyelim (örnek)
-            setTimeout(() => {
-                let botMessage = document.createElement("div");
-                botMessage.classList.add("message", "bot-message");
-                botMessage.textContent = "Bot: Mesajını aldım! 😊";
-                chatBox.appendChild(botMessage);
-
-                chatBox.scrollTop = chatBox.scrollHeight; // En alta kaydır
-            }, 1000);
+            db.ref("messages").push({
+                user: userId,
+                text: messageText,
+                timestamp: Date.now()
+            });
 
             messageInput.value = ""; // Input'u temizle
+        }
+
+        // Mesajları ekrana yazdırma fonksiyonu
+        function displayMessage(user, text) {
+            let chatBox = document.getElementById("chatBox");
+            let messageDiv = document.createElement("div");
+
+            messageDiv.classList.add("message");
+            if (user === "Me") {
+                messageDiv.classList.add("user-message");
+            } else {
+                messageDiv.classList.add("other-message");
+            }
+
+            messageDiv.textContent = `${user}: ${text}`;
+            chatBox.appendChild(messageDiv);
             chatBox.scrollTop = chatBox.scrollHeight; // En alta kaydır
         }
+
+        // Gerçek zamanlı mesaj dinleme
+        db.ref("messages").on("child_added", (snapshot) => {
+            let message = snapshot.val();
+            displayMessage(message.user, message.text);
+        });
     </script>
 </body>
 </html>
