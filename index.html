@@ -18,7 +18,7 @@
             color: #555;
         }
         .red-text {
-            color: red;
+            /* color: red; */
         }
         .chat-container {
             max-width: 600px;
@@ -68,7 +68,7 @@
     <h1>Merhaba, GitHub Pages!</h1>
     <p>Bu sayfa GitHub Pages üzerinde barındırılıyor.</p>
     <p>Başarıyla çalışıyor!</p>
-    <button onclick="makeTextRed()">Metni Kırmızı Yap</button>
+    <!-- <button onclick="makeTextRed()">Metni Kırmızı Yap</button> -->
     <div class="chat-container">
         <div class="messages" id="messages"></div>
         <div class="input-container">
@@ -77,11 +77,11 @@
         </div>
     </div>
     <script>
-        function makeTextRed() {
-            document.querySelectorAll('p').forEach(p => {
-                p.classList.add('red-text');
-            });
-        }
+        // function makeTextRed() {
+        //     document.querySelectorAll('p').forEach(p => {
+        //         p.classList.add('red-text');
+        //     });
+        // }
 
         function sendMessage() {
             const input = document.getElementById('messageInput');
@@ -102,7 +102,22 @@
             messageElement.textContent = text;
             messages.appendChild(messageElement);
             messages.scrollTop = messages.scrollHeight;
+            saveMessages();
         }
+
+        function saveMessages() {
+            const messages = document.getElementById('messages').innerHTML;
+            localStorage.setItem('chatMessages', messages);
+        }
+
+        function loadMessages() {
+            const messages = localStorage.getItem('chatMessages');
+            if (messages) {
+                document.getElementById('messages').innerHTML = messages;
+            }
+        }
+
+        window.onload = loadMessages;
     </script>
 </body>
 </html>
