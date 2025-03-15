@@ -1,136 +1,74 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerçek Zamanlı Chat</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
-        .chat-container {
-            width: 300px;
-            height: 400px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .chat-box {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-        .message {
-            padding: 8px 12px;
-            margin: 5px;
-            border-radius: 5px;
-            max-width: 70%;
-        }
-        .user-message {
-            background-color: #007bff;
-            color: white;
-            align-self: flex-end;
-        }
-        .other-message {
-            background-color: #e1e1e1;
-            color: black;
-            align-self: flex-start;
-        }
-        .input-box {
-            display: flex;
-            padding: 10px;
-            background: #ddd;
-        }
-        input {
-            flex: 1;
-            padding: 8px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-        }
-        button {
-            padding: 8px;
-            border: none;
-            background: #007bff;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-left: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İnanılmaz Şık HTML Dosyası</title>
+  <style>
+    /* Genel stil sıfırlaması */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Sayfa genel stili */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* İçerik kutusu stili */
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 600px;
+      margin: 1rem;
+    }
+    
+    /* Başlık stili */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    
+    /* Paragraf stili */
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Buton stil ayarları */
+    a.button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #66a6ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: background 0.3s ease;
+    }
+    
+    a.button:hover {
+      background: #89f7fe;
+    }
+  </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-box" id="chatBox">
-            <!-- Mesajlar buraya gelecek -->
-        </div>
-        <div class="input-box">
-            <input type="text" id="messageInput" placeholder="Mesajınızı yazın...">
-            <button onclick="sendMessage()">Gönder</button>
-        </div>
-    </div>
-
-    <script>
-        // 🔥 Firebase yapılandırmanı buraya ekle
-        const firebaseConfig = {
-           //:)
-        };
-
-        // Firebase başlat
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        function sendMessage() {
-            let messageInput = document.getElementById("messageInput");
-            let messageText = messageInput.value.trim();
-            if (messageText === "") return;
-
-            let userId = "User_" + Math.floor(Math.random() * 1000); // Geçici kullanıcı adı
-
-            db.ref("messages").push({
-                user: userId,
-                text: messageText,
-                timestamp: Date.now()
-            });
-
-            messageInput.value = ""; // Input'u temizle
-        }
-
-        // Mesajları ekrana yazdırma fonksiyonu
-        function displayMessage(user, text) {
-            let chatBox = document.getElementById("chatBox");
-            let messageDiv = document.createElement("div");
-
-            messageDiv.classList.add("message");
-            if (user === "Me") {
-                messageDiv.classList.add("user-message");
-            } else {
-                messageDiv.classList.add("other-message");
-            }
-
-            messageDiv.textContent = `${user}: ${text}`;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight; // En alta kaydır
-        }
-
-        // Gerçek zamanlı mesaj dinleme
-        db.ref("messages").on("child_added", (snapshot) => {
-            let message = snapshot.val();
-            displayMessage(message.user, message.text);
-        });
-    </script>
+  <div class="container">
+    <h1>Hoş Geldiniz!</h1>
+    <p>Bu, inanılmaz şık bir HTML dosyası örneğidir. Modern ve minimalist tasarımı ile dikkat çekmektedir.</p>
+    <a href="#" class="button">Daha Fazla Bilgi</a>
+  </div>
 </body>
 </html>
