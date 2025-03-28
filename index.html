@@ -18,8 +18,10 @@
 
         .clock-container {
             position: relative;
-            width: 240px;
-            height: 240px;
+            width: 70vh; /* Ekran yüksekliğine göre boyut */
+            height: 70vh;
+            max-width: 300px; /* Maksimum boyut */
+            max-height: 300px;
             border-radius: 50%;
             background-color: #fff;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -37,8 +39,8 @@
 
         .center-dot {
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: 4%;  /* Saat boyutuna göre ayarlanmış */
+            height: 4%;
             background-color: #777;
             border-radius: 50%;
             z-index: 3;
@@ -49,8 +51,8 @@
 
         .hour-hand {
             position: absolute;
-            width: 8px;
-            height: 60px;
+            width: 3%;   /* Saat boyutuna göre ayarlanmış */
+            height: 25%;
             background-color: #333;
             top: 50%;
             left: 50%;
@@ -62,8 +64,8 @@
 
         .minute-hand {
             position: absolute;
-            width: 6px;
-            height: 90px;
+            width: 2.5%; /* Saat boyutuna göre ayarlanmış */
+            height: 37.5%;
             background-color: #555;
             top: 50%;
             left: 50%;
@@ -75,30 +77,30 @@
 
         .second-hand {
             position: absolute;
-            width: 2px;
-            height: 110px;
+            width: 1.5%; /* Saat boyutuna göre ayarlanmış */
+            height: 45%;
             background-color: #f44336;
             top: 50%;
             left: 50%;
             transform-origin: bottom;
-             transform: translate(-50%, -100%) rotate(0deg);
+            transform: translate(-50%, -100%) rotate(0deg);
             transition: transform 0.1s linear;
             z-index: 1;
         }
 
         .number {
             position: absolute;
-            font-size: 16px;
+            font-size: 5%;  /* Saat boyutuna göre ayarlanmış */
             color: #333;
         }
 
         .number1 {
-            top: 12%;
-            right: 26%;
+            top: 15%;
+            right: 28%;
         }
         .number2 {
-            top: 26%;
-            right: 12%;
+            top: 28%;
+            right: 15%;
         }
         .number3 {
             top: 50%;
@@ -106,12 +108,12 @@
             transform: translateY(-50%);
         }
         .number4 {
-            bottom: 26%;
-            right: 12%;
+            bottom: 28%;
+            right: 15%;
         }
         .number5 {
-            bottom: 12%;
-            right: 26%;
+            bottom: 15%;
+            right: 28%;
         }
         .number6 {
             bottom: 2%;
@@ -119,12 +121,12 @@
             transform: translateX(-50%);
         }
         .number7 {
-            bottom: 12%;
-            left: 26%;
+            bottom: 15%;
+            left: 28%;
         }
         .number8 {
-            bottom: 26%;
-            left: 12%;
+            bottom: 28%;
+            left: 15%;
         }
         .number9 {
             top: 50%;
@@ -132,12 +134,12 @@
             transform: translateY(-50%);
         }
         .number10 {
-            top: 26%;
-            left: 12%;
+            top: 28%;
+            left: 15%;
         }
         .number11 {
-            top: 12%;
-            left: 26%;
+            top: 15%;
+            left: 28%;
         }
         .number12 {
             top: 2%;
@@ -176,7 +178,9 @@
         const secondHand = document.querySelector('.second-hand');
 
         const colors = [
-            '#f08080', '#fa9fb5', '#f5f5dc', '#d3d3d3', '#afeeee', '#e0ffff', '#f0e68c'
+            '#f08080', '#fa9fb5', '#f5f5dc', '#d3d3d3', '#afeeee', '#e0ffff', '#f0e68c',
+            '#ffdab9', '#d8bfd8', '#b0e0e6', '#a52a2a', '#deb887', '#cd853f', '#f4a460',
+            '#d2691e', '#8b4513', '#a0522d', '#b8860b', '#daa520', '#ffd700', '#ffc300'
         ];
         let colorIndex = 0;
 
@@ -201,6 +205,14 @@
 
         updateClock();
         setInterval(updateClock, 1000);
+
+        // Ekran boyutu değiştikçe saati yeniden boyutlandır
+        window.addEventListener('resize', () => {
+            const clockContainer = document.querySelector('.clock-container');
+            const newSize = Math.min(window.innerHeight, window.innerWidth) * 0.7;
+            clockContainer.style.width = `${newSize}px`;
+            clockContainer.style.height = `${newSize}px`;
+        });
     </script>
 </body>
 </html>
