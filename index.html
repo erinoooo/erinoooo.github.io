@@ -1,74 +1,206 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>İnanılmaz Şık HTML Dosyası</title>
-  <style>
-    /* Genel stil sıfırlaması */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    /* Sayfa genel stili */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #89f7fe, #66a6ff);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    /* İçerik kutusu stili */
-    .container {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      max-width: 600px;
-      margin: 1rem;
-    }
-    
-    /* Başlık stili */
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #333;
-    }
-    
-    /* Paragraf stili */
-    p {
-      font-size: 1.2rem;
-      line-height: 1.5;
-      color: #555;
-      margin-bottom: 1.5rem;
-    }
-    
-    /* Buton stil ayarları */
-    a.button {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: #66a6ff;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 50px;
-      transition: background 0.3s ease;
-    }
-    
-    a.button:hover {
-      background: #89f7fe;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Saat</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.5s ease;
+        }
+
+        .clock-container {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .clock-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .center-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #777;
+            border-radius: 50%;
+            z-index: 3;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hour-hand {
+            position: absolute;
+            width: 8px;
+            height: 60px;
+            background-color: #333;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translate(-50%, -100%) rotate(0deg);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 2;
+        }
+
+        .minute-hand {
+            position: absolute;
+            width: 6px;
+            height: 90px;
+            background-color: #555;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translate(-50%, -100%) rotate(0deg);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 2;
+        }
+
+        .second-hand {
+            position: absolute;
+            width: 2px;
+            height: 110px;
+            background-color: #f44336;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom;
+             transform: translate(-50%, -100%) rotate(0deg);
+            transition: transform 0.1s linear;
+            z-index: 1;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .number1 {
+            top: 12%;
+            right: 26%;
+        }
+        .number2 {
+            top: 26%;
+            right: 12%;
+        }
+        .number3 {
+            top: 50%;
+            right: 2%;
+            transform: translateY(-50%);
+        }
+        .number4 {
+            bottom: 26%;
+            right: 12%;
+        }
+        .number5 {
+            bottom: 12%;
+            right: 26%;
+        }
+        .number6 {
+            bottom: 2%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .number7 {
+            bottom: 12%;
+            left: 26%;
+        }
+        .number8 {
+            bottom: 26%;
+            left: 12%;
+        }
+        .number9 {
+            top: 50%;
+            left: 2%;
+            transform: translateY(-50%);
+        }
+        .number10 {
+            top: 26%;
+            left: 12%;
+        }
+        .number11 {
+            top: 12%;
+            left: 26%;
+        }
+        .number12 {
+            top: 2%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1>Hoş Geldiniz!</h1>
-    <p>Bu, inanılmaz şık bir HTML dosyası örneğidir. Modern ve minimalist tasarımı ile dikkat çekmektedir.</p>
-    <a href="#" class="button">Daha Fazla Bilgi</a>
-  </div>
+    <div class="clock-container">
+        <div class="clock-face">
+            <div class="number number1">1</div>
+            <div class="number number2">2</div>
+            <div class="number number3">3</div>
+            <div class="number number4">4</div>
+            <div class="number number5">5</div>
+            <div class="number number6">6</div>
+            <div class="number number7">7</div>
+            <div class="number number8">8</div>
+            <div class="number number9">9</div>
+            <div class="number number10">10</div>
+            <div class="number number11">11</div>
+            <div class="number number12">12</div>
+            <div class="center-dot"></div>
+            <div class="hour-hand"></div>
+            <div class="minute-hand"></div>
+            <div class="second-hand"></div>
+        </div>
+    </div>
+
+    <script>
+        const hourHand = document.querySelector('.hour-hand');
+        const minuteHand = document.querySelector('.minute-hand');
+        const secondHand = document.querySelector('.second-hand');
+
+        const colors = [
+            '#f08080', '#fa9fb5', '#f5f5dc', '#d3d3d3', '#afeeee', '#e0ffff', '#f0e68c'
+        ];
+        let colorIndex = 0;
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourRotation = (hours % 12 + minutes / 60) * 30;
+            const minuteRotation = (minutes + seconds / 60) * 6;
+            const secondRotation = seconds * 6;
+
+            hourHand.style.transform = `translate(-50%, -100%) rotate(${hourRotation}deg)`;
+            minuteHand.style.transform = `translate(-50%, -100%) rotate(${minuteRotation}deg)`;
+            secondHand.style.transform = `translate(-50%, -100%) rotate(${secondRotation}deg)`;
+
+            // Arka plan rengini değiştir
+            colorIndex = minutes % colors.length;
+            document.body.style.backgroundColor = colors[colorIndex];
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
 </body>
 </html>
